@@ -17,16 +17,16 @@ public class QuestionController {
     RestTemplate restTemplate;
     
     /**
-     * Retrieves 5 questions 
+     * Retrieves 5 multi-choice questions 
      * 
      * @return 
      */
     @GetMapping("/questions")
     public Question[] questions() {
-        ResponseEntity<QuestionResponse> response = restTemplate.getForEntity("https://opentdb.com/api.php?amount=5", QuestionResponse.class);
-        QuestionResponse body = response.getBody();
+        ResponseEntity<QuestionResponse> response = restTemplate.getForEntity("https://opentdb.com/api.php?amount=5&type=multiple", QuestionResponse.class);
+        Question[] questions = response.getBody().getResults();
         
-        return body.getResults();
+        return questions;
     }
     
     @PostMapping("/checkanswer")
