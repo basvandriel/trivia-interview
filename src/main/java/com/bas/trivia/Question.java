@@ -1,10 +1,13 @@
 package com.bas.trivia;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author Bas
  */
 public class Question {
+
     /**
      * The category of the question
      */
@@ -14,7 +17,7 @@ public class Question {
      * The type
      */
     private String type;
-    
+
     /**
      * Easy, medium or hard. Could be an enum later
      */
@@ -24,27 +27,34 @@ public class Question {
      * The value of the question
      */
     private String question;
-    
+
     /**
      * The one and only correct answer
      */
     private String correct_answer;
-    
+
     /**
      * All the incorrect answers
      */
     private String[] incorrect_answers;
 
     /**
-     * 
+     *
      * @param category
      * @param type
      * @param difficulty
      * @param question
      * @param correct_answer
-     * @param incorrect_answers 
+     * @param incorrect_answers
      */
-    public Question(String category, String type, String difficulty, String question, String correct_answer, String[] incorrect_answers) {
+    public Question(
+        @JsonProperty("category") String category,
+        @JsonProperty("type") String type, 
+        @JsonProperty("difficulty") String difficulty, 
+        @JsonProperty("question")  String question,
+        @JsonProperty("correct_answer") String correct_answer, 
+        @JsonProperty("incorrect_answers") String[] incorrect_answers
+    ) {
         this.category = category;
         this.type = type;
         this.difficulty = difficulty;
@@ -52,11 +62,6 @@ public class Question {
         this.correct_answer = correct_answer;
         this.incorrect_answers = incorrect_answers;
     }
-    
-    /**
-     * Cheap hax
-     */
-    public Question() {}
 
     public String getCategory() {
         return category;
@@ -80,5 +85,5 @@ public class Question {
 
     public String[] getIncorrect_answers() {
         return incorrect_answers;
-    }    
+    }
 }
