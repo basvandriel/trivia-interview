@@ -1,5 +1,6 @@
 package com.bas.trivia;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,32 +12,32 @@ public class Question {
     /**
      * The category of the question
      */
-    private String category;
+    private final String category;
 
     /**
      * The type
      */
-    private String type;
+    private final String type;
 
     /**
-     * Easy, medium or hard. Could be an enum later
+     * Easy, medium or hard. Could be an enumeration later
      */
-    private String difficulty;
+    private final String difficulty;
 
     /**
      * The value of the question
      */
-    private String question;
+    private final String question;
 
     /**
      * The one and only correct answer
      */
-    private String correct_answer;
+    private final String correct_answer;
 
     /**
      * All the incorrect answers
      */
-    private String[] incorrect_answers;
+    private final String[] incorrect_answers;
 
     /**
      *
@@ -48,12 +49,12 @@ public class Question {
      * @param incorrect_answers
      */
     public Question(
-        @JsonProperty("category") String category,
-        @JsonProperty("type") String type, 
-        @JsonProperty("difficulty") String difficulty, 
-        @JsonProperty("question")  String question,
-        @JsonProperty("correct_answer") String correct_answer, 
-        @JsonProperty("incorrect_answers") String[] incorrect_answers
+            @JsonProperty("category") String category,
+            @JsonProperty("type") String type,
+            @JsonProperty("difficulty") String difficulty,
+            @JsonProperty("question") String question,
+            @JsonProperty("correct_answer") String correct_answer,
+            @JsonProperty("incorrect_answers") String[] incorrect_answers
     ) {
         this.category = category;
         this.type = type;
@@ -79,11 +80,13 @@ public class Question {
         return question;
     }
 
-    public String getCorrect_answer() {
+    @JsonIgnore
+    public String getCorrectAnswer() {
         return correct_answer;
     }
 
-    public String[] getIncorrect_answers() {
+    @JsonIgnore
+    public String[] getIncorrectAnswers() {
         return incorrect_answers;
     }
 }
