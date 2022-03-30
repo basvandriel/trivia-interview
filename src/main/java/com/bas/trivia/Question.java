@@ -2,6 +2,10 @@ package com.bas.trivia;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -78,6 +82,17 @@ public class Question {
 
     public String getQuestion() {
         return question;
+    }
+
+    @JsonProperty("possible_answers")
+    public String[] getPossibleAnswers() {
+        List<String> list = new ArrayList(Arrays.asList(this.getIncorrectAnswers()));
+        list.add(this.correct_answer);
+        
+        Collections.shuffle(list);
+        
+        // String cast
+        return list.toArray(new String[0]);
     }
 
     @JsonIgnore
