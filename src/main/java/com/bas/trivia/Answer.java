@@ -40,6 +40,16 @@ public class Answer implements Serializable {
     }
 
     /**
+     * We only need the value here
+     * 
+     * @return 
+     */
+    @Override
+    public String toString() {
+        return text;
+    }
+    
+    /**
      * Simple ID
      *
      * @return
