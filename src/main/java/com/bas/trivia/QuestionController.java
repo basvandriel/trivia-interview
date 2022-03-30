@@ -29,13 +29,14 @@ public class QuestionController {
      */
     @GetMapping("/questions")
     public Question[] questions() {
-        ResponseEntity<OpenTDBResponse> response = restTemplate.getForEntity("https://opentdb.com/api.php?amount=5&type=multiple", OpenTDBResponse.class);
+        ResponseEntity<OpenTDBResponse> response = restTemplate.getForEntity(Constants.OPENTDB_URI, OpenTDBResponse.class, Constants.QUESTION_AMOUNT);
         Question[] questions = response.getBody().getResults();
-
+        
+        // todo null check for response.getBody()
         // For now, iterate through the question and create answer objects
         // from the results. Those can be buffered. Later in a TTL redis-store
-        for (int i = 0; i < questions.length; i++) {
-            Answer answer = new Answer(questions[i].getCorrectAnswer(), questions[i].getQuestion());
+        for (Question question : questions) {
+            Answer answer = new Answer(question.getCorrectAnswer(), question.getQuestion());
             repository.save(answer);
         }
         return questions;

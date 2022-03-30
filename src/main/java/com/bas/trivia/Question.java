@@ -53,12 +53,12 @@ public class Question {
      * @param incorrect_answers
      */
     public Question(
-            @JsonProperty("category") String category,
-            @JsonProperty("type") String type,
-            @JsonProperty("difficulty") String difficulty,
-            @JsonProperty("question") String question,
-            @JsonProperty("correct_answer") String correct_answer,
-            @JsonProperty("incorrect_answers") String[] incorrect_answers
+        @JsonProperty("category") String category,
+        @JsonProperty("type") String type,
+        @JsonProperty("difficulty") String difficulty,
+        @JsonProperty("question") String question,
+        @JsonProperty("correct_answer") String correct_answer,
+        @JsonProperty("incorrect_answers") String[] incorrect_answers
     ) {
         this.category = category;
         this.type = type;
