@@ -2,15 +2,14 @@ package com.bas.trivia;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class QuestionResponse {
-
+public class OpenTDBResponse {
     /**
-     * It's default
+     * ...
      */
     private int response_code;
 
     /**
-     * The questions from the result
+     * ...
      */
     private Question[] results;
 
@@ -21,7 +20,7 @@ public class QuestionResponse {
      * @param response_code 
      * @param results The questions from the result
      */
-    public QuestionResponse(@JsonProperty("response_code") int response_code, @JsonProperty("results") Question[] results) {
+    public OpenTDBResponse(@JsonProperty("response_code") int response_code, @JsonProperty("results") Question[] results) {
         this.response_code = response_code;
         this.results = results;
     }
@@ -32,13 +31,5 @@ public class QuestionResponse {
 
     public Question[] getResults() {
         return results;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.response_code = responseCode;
-    }
-
-    public void setResults(Question[] results) {
-        this.results = results;
     }
 }

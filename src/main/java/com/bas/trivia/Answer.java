@@ -1,7 +1,7 @@
 package com.bas.trivia;
 
-//import javax.persistence.Entity;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +21,7 @@ public class Answer implements Serializable {
     /**
      * The answer to a linked question
      */
+    @Column(name = "value")
     private String text;
 
     /**

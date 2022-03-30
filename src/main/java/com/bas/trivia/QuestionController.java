@@ -27,7 +27,7 @@ public class QuestionController {
      */
     @GetMapping("/questions")
     public Question[] questions() {
-        ResponseEntity<QuestionResponse> response = restTemplate.getForEntity("https://opentdb.com/api.php?amount=5&type=multiple", QuestionResponse.class);
+        ResponseEntity<OpenTDBResponse> response = restTemplate.getForEntity("https://opentdb.com/api.php?amount=5&type=multiple", OpenTDBResponse.class);
         Question[] questions = response.getBody().getResults();
 
         // For now, iterate through the question and create answer objects
