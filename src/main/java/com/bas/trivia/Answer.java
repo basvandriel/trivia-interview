@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
 /**
  *
  * @author Bas
@@ -22,17 +19,23 @@ public class Answer implements Serializable {
     private Long id;
 
     /**
-     * The answer to a random question
+     * The answer to a linked question
      */
     private String text;
+
+    /**
+     *
+     */
+    private String question;
     
     /**
      * Bad.
      */
     public Answer() {}
     
-    public Answer(String text) {
+    public Answer(String text, String question) {
         this.text = text;
+        this.question = question;
     }
 
     /**
@@ -44,11 +47,11 @@ public class Answer implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getText() {
         return text;
+    }
+    
+    public String getQuestion() {
+        return question;
     }
 }
