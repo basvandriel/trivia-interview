@@ -34,3 +34,6 @@ build/
 
 nbactions.xml
 nb-confgiruation.xml
+
+# Secrets
+application.properties

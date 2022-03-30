@@ -14,7 +14,11 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class QuestionController {
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+    
+    
+    @Autowired
+    private AnswerRepository repository;
     
     /**
      * Retrieves 5 multi-choice questions 
@@ -32,5 +36,18 @@ public class QuestionController {
     @PostMapping("/checkanswer")
     public String check() {
         return "Yeah!";
+    }
+    
+    @PostMapping("/add")
+    public boolean add() {
+        Answer a = new Answer("Hallo!");
+        a.setId(10L);
+        
+        repository.save(a);
+        
+        
+        Iterable<Answer> answers = repository.findAll();
+        
+        return true;
     }
 }
