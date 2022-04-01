@@ -12,5 +12,5 @@ jobs:
           distribution: 'temurin'
           java-version: "18.0.0+36"
       - run: chmod +x mvnw
-      - name: build action
-        run: ./mvnw buildgit
+      - name: Build & Test
+        run: ./mvnw test
