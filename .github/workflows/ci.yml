@@ -9,7 +9,9 @@ jobs:
       - name: Setting up java env
         uses: actions/setup-java@v2
         with:
-          java-version: 18
+          distribution: 'temurin'
+          java-version: 1.8
+          cache: 'maven'          
       - run: chmod +x gradlew
       - name: build action
         run: ./gradlew build
