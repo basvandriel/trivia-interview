@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Question from './Question';
 
@@ -21,8 +20,7 @@ function App() {
     fetchQuestions();
   }, [])
 
-  if(questions.length === 0) return <p>"No questions yet!"</p>
-
+  if(questions.length === 0) return <p>Loading.</p>
 
   const submit = async (answer: string) => {
     const question: string = questions[0].question
@@ -44,18 +42,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"> 
-        <p dangerouslySetInnerHTML={{ __html: questions[0].question}}/>
-
-        <div>
-          {questions[0].possible_answers.map((v, i) => (
-            <label key={i} htmlFor={`answer_${i}`}>
-              <input type={'radio'} name='possible_answer' id={`answer_${i}`} onChange={(e) => submit(v)} />
-              {v}
-            </label>
-          ))}
-        </div>
-      </header>
+      <p dangerouslySetInnerHTML={{ __html: questions[0].question}}/>
+      <div>
+        {questions[0].possible_answers.map((v, i) => (
+          <label key={i} htmlFor={`answer_${i}`}>
+            <input type={'radio'} name='possible_answer' id={`answer_${i}`} onChange={(e) => submit(v)} />
+            {v.normalize()}
+          </label>
+        ))}
+      </div>
     </div>
   );
 }
