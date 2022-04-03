@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-interface Question {
-  category: string,
-  difficulty: string,
-  question: string,
-  possible_answers: string[]
-}
+import Question from './Question';
 
 /**
  * Move into env
@@ -50,15 +44,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header className="App-header"> 
         <p dangerouslySetInnerHTML={{ __html: questions[0].question}}/>
 
         <div>
           {questions[0].possible_answers.map((v, i) => (
-            <div key={i} onClick={() => submit(v)}>
-              <input type={'radio'} name='possible_answer'/>{v}
-            </div>
+            <label key={i} htmlFor={`answer_${i}`}>
+              <input type={'radio'} name='possible_answer' id={`answer_${i}`} onChange={(e) => submit(v)} />
+              {v}
+            </label>
           ))}
         </div>
       </header>
