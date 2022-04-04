@@ -12,6 +12,11 @@ export const Trivia = () => {
   const [index, setIndex] = useState(0);
 
   /**
+   * If the user completed the quiz
+   */
+  const [completed, setCompleted] = useState(false);
+
+  /**
    * To fetch the questions
    */
   const fetchQuestions = useQuestionsRequest();
@@ -46,14 +51,7 @@ export const Trivia = () => {
   /**
    * Proceeds to the next question
    */
-  const next = () => {
-    if (index + 1 > questions.length - 1) {
-      console.log("Reached end of the questions");
-      return;
-    }
-
-    setIndex((current) => current + 1);
-  };
+  const next = () => setIndex((current) => current + 1);
 
   const submit = async (answer: string) => {
     const { question } = questions[index];
@@ -64,8 +62,15 @@ export const Trivia = () => {
 
     console.log(ok);
 
-    next();
+    const end = index + 1 > questions.length - 1;
+
+    if (!end) next();
+    else setCompleted(true);
   };
+
+  if (completed) {
+    return <p>Nice job!</p>;
+  }
 
   return (
     <>
