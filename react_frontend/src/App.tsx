@@ -1,18 +1,6 @@
-import { useEffect, useState } from 'react';
+import './App.css';
+import { Trivia } from './Trivia';
 
-function App() {
-  const [questions, setQuestions] = useState([])
-
-  useEffect(() => {
-    (async () => {
-      const response = await fetch("https://localhost:8080/questions")
-      console.log('Fetching questions')
-    })();
-  }, [])
-
-  return (
-    <p>Yes</p>
-  );
-}
+const App = () => <div className='App'><Trivia/></div>
 
 export default App;
