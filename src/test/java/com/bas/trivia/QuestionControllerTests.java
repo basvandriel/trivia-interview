@@ -28,7 +28,7 @@ public class QuestionControllerTests {
     MockMvc mvc;
 
     @Autowired
-    AnswerRepository repository;
+    QuestionRepository repository;
 
     @Test
     void testQuestions() throws Exception {
@@ -69,12 +69,15 @@ public class QuestionControllerTests {
     
     @Test
     void checkAnswerWithMatch() throws Exception {
-        Answer answer = new Answer("Het antwoord", "De vraag");
-        repository.save(answer);
+        Question question = new Question();
+        question.setCorrect_answer("Het antwoord");
+        question.setQuestion("De vraag");
+        
+        repository.save(question);
         
         CheckAnswerRequestPayload payload = new CheckAnswerRequestPayload(
-                answer.getQuestion(),
-                answer.getText()
+            question.getQuestion(),
+            question.getCorrectAnswer()
         );
         
         String content = new Gson().toJson(payload);

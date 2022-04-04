@@ -2,49 +2,72 @@ package com.bas.trivia;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Bas
  */
-public class Question {
-
+@Entity
+public class Question implements Serializable {
+    /**
+     * Unique identifier
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
     /**
      * The category of the question
      */
-    private final String category;
+    @Transient
+    private String category;
 
     /**
      * The type
      */
-    private final String type;
+    @Transient
+    private String type;
 
     /**
      * Easy, medium or hard. Could be an enumeration later
      */
-    private final String difficulty;
+    @Transient
+    private String difficulty;
 
     /**
      * The value of the question
      */
-    private final String question;
+    private String question;
 
     /**
      * The one and only correct answer
      */
-    private final String correct_answer;
+    private String correct_answer;
 
     /**
      * All the incorrect answers
      */
-    private final String[] incorrect_answers;
+    @Transient
+    private String[] incorrect_answers;
 
     /**
-     *
+     * 
+     */
+    public Question() {}
+
+    /**
+     * 
+     * 
      * @param category
      * @param type
      * @param difficulty
@@ -104,4 +127,14 @@ public class Question {
     public String[] getIncorrectAnswers() {
         return incorrect_answers;
     }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setCorrect_answer(String correct_answer) {
+        this.correct_answer = correct_answer;
+    }
+    
+    
 }

@@ -7,20 +7,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Bas
  */
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class QuestionController {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    
     @Autowired
-    private AnswerRepository repository;
+    private QuestionRepository repository;
 
     /**
      * Retrieves 5 multi-choice questions
@@ -35,13 +38,17 @@ public class QuestionController {
         // todo null check for response.getBody()
         // For now, iterate through the question and create answer objects
         // from the results. Those can be buffered. Later in a TTL redis-store
-        for (Question question : questions) {
-            Answer answer = new Answer(question.getCorrectAnswer(), question.getQuestion());
-            repository.save(answer);
+        for (Question question : questions) {            
+            repository.save(question);
         }
         return questions;
     }
 
+    /**
+     *
+     * @param payload
+     * @return
+     */
     @RequestMapping(value = "/checkanswer", method = RequestMethod.POST, headers = "Accept=application/json")
     public boolean check(@RequestBody CheckAnswerRequestPayload payload) {
         String question = payload.getQuestion();
@@ -53,13 +60,12 @@ public class QuestionController {
         }
         
         // The answer object we need to check against
-        final Answer checksum = repository.findFirstByQuestion(question);
+        final Question checksum = repository.findFirstByQuestion(question);
 
         // And see if it exists
         if (checksum == null) return false;
         
         // Don't bother upper/lower case for matching        
-        return answer.equalsIgnoreCase(checksum.toString());
-
+        return answer.equalsIgnoreCase(checksum.getCorrectAnswer());
     }
 }
