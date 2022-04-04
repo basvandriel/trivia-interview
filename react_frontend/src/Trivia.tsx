@@ -47,15 +47,18 @@ export const Trivia = () => {
    * Proceeds to the next question
    */
   const next = () => {
-    if (index + 1 > questions.length) return;
+    if (index + 1 > questions.length - 1) {
+      console.log("Reached end of the questions");
+      return;
+    }
 
     setIndex((current) => current + 1);
   };
 
   const submit = async (answer: string) => {
-    const question: string = questions[index].question;
-
+    const { question } = questions[index];
     const response = await check(question, answer);
+
     // If the answer was correct
     const ok: boolean = await response.json();
 
@@ -64,21 +67,14 @@ export const Trivia = () => {
     next();
   };
 
-  console.log(questions);
   return (
     <>
       <p dangerouslySetInnerHTML={{ __html: questions[index].question }} />
       <div>
         {questions[index].possible_answers.map((v, i) => (
-          <button
-            key={i}
-            id={`answer_${i}`}
-            name="possible_answer"
-            onClick={() => submit(v)}
-          >
+          <button key={i} id={`answer_${i}`} onClick={() => submit(v)}>
             <span dangerouslySetInnerHTML={{ __html: v }} />
           </button>
-          // </label>
         ))}
       </div>
     </>
